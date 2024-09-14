@@ -1,0 +1,133 @@
+<style>
+    /* Global Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #222327;
+      border: none;
+      max-width: 800px;
+      margin: auto;
+      padding: 10px;
+
+    }
+   
+    form {
+      max-width: 800px;
+      background: #0000001f;
+      padding: 20px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      margin-top: 200px;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    form  input[type="submit"] {
+      width: 40%;
+      height: 30px;
+      border-radius: 20px;
+      border: none;
+      background: transparent;
+      color: white;
+      font-weight: 750;
+      color: black;
+      
+    }
+    form  input  {
+      border: none;
+      font-size: 16px;
+      font-family: Arial, Helvetica, sans-serif;
+      width: 60%;
+      padding: 20px;
+      border-radius: 12px;
+      background-color: rgba(0, 0, 0, 0.247);
+      color: white;
+      font-weight: 750;
+      letter-spacing: 2px;
+      font-size: 16px;
+    }
+    input:focus {
+        outline: none;
+        color: rgb(64, 247, 104);
+    }
+    
+  </style>
+  <style>
+    nav {
+        display: flex;
+        flex-direction:row;
+        justify-content: space-evenly;
+
+    }
+     a {
+        font-size: 20px;
+        padding: 12px 30px;
+        border: none ;
+        border-radius: 40px;
+        font-weight: 750;
+        color: rgb(216, 216, 216);
+    }
+    .user {
+        color: white;
+            width: 100%;
+            padding-top: 20px;
+            padding-left: 20px;
+            padding-right: 20px;
+            height: auto;
+            border: solid 1px rgb(184, 184, 184);
+            border-radius: 40px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-top: 10px;
+
+    }
+    .user h5 {
+        margin: 5px;
+        font-size: 30px;
+        color: gray;
+    }
+    .user h6 {
+        font-size: 20px;
+        margin: 0 10px;
+    }
+    .user a {
+        padding: 10px 30px;
+        border: solid gra;
+        max-width: 180px;
+        text-align: center;
+        background-color: rgb(42, 46, 46);
+        text-decoration: none;
+        margin:  5px 0 12px 0;
+        color: rgb(75, 248, 162);
+    }
+    nav {
+        margin: 2px;
+        border: solid 1px rgb(163, 163, 163);
+        border-radius: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+  </style>
+
+
+<form  method="post">
+    {% if error%}
+<p style="color: red;">{{error}}</p>
+{% endif%}
+    <h1 style="color: rgb(63, 218, 63);text-shadow:1px 1px 4px ; font-weight: 900;margin:40px 0; font-size: 40px;text-transform: uppercase;letter-spacing: 4px;">login</h1>
+    {% csrf_token %}
+    <input type="text" name="name" placeholder="name.." required>
+    <input type="email" name="email" id="" placeholder="email..." required>
+    <input type="password" name="password" id="" placeholder="password..." required>
+    <div class="hr" style="display: flex;">
+        <button type="submit" style="padding: 12px 30px;border-radius: 30px; border: none; background: transparent; font-size: 18px;color: rgb(39, 206, 47);text-decoration: underline;font-weight: 900;">login</button>
+        <p style="color: white; margin-top: 10px;">or</p>
+        <a href="{%url 'register'%}" style="font-size: 16px;color: rgb(39, 206, 47);">create account ?</a>

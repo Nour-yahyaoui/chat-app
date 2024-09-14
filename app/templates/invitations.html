@@ -1,0 +1,145 @@
+<style>
+        /* Global Styles */
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #222327;
+          border: solid 1px rgba(255, 255, 255, 0.192);
+          max-width: 800px;
+          margin: auto;
+          overflow-x: hidden;
+          padding: 20px;
+    
+        }
+       
+        form {
+          max-width: 800px;
+          background: #0000001f;
+          padding: 20px;
+          border-radius: 12px;
+          display: flex;
+          flex-direction: column;
+          margin-top: 200px;
+          flex-wrap: wrap;
+          gap: 10px;
+          align-items: center;
+        }
+        form  input[type="submit"] {
+          width: 40%;
+          height: 30px;
+          border-radius: 20px;
+          border: none;
+          background: transparent;
+          color: white;
+          font-weight: 750;
+          color: black;
+          
+        }
+        form  input  {
+          border: none;
+          font-size: 16px;
+          font-family: Arial, Helvetica, sans-serif;
+          width: 60%;
+          padding: 20px;
+          border-radius: 12px;
+          background-color: rgba(0, 0, 0, 0.247);
+          color: white;
+          font-weight: 750;
+          letter-spacing: 2px;
+          font-size: 16px;
+        }
+        input:focus {
+            outline: none;
+            color: rgb(64, 247, 104);
+        }
+        .friend {
+            color: white;
+            width: 100%;
+            padding-top: 20px;
+            padding-left: 20px;
+            padding-right: 20px;
+            height: auto;
+            border: solid 1px rgb(170, 170, 170);
+            border-radius: 40px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        .friend li {
+            list-style: none;
+            
+        }
+        ul
+        {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        ul #msgg 
+        {
+        padding: 15px 30px;
+        border: solid gra;
+        font-size: 19px;
+        max-width: 180px;
+        text-align: center;
+        border-radius: 40px;
+        font-weight: 900;
+        background-color: rgb(42, 46, 46);
+        text-decoration: none;
+        margin:  5px 0 12px 0;
+        color: rgb(75, 248, 162);
+            
+        }
+        .friend h3 {
+            margin: 5px;
+        font-size: 30px;
+        color: gray;
+    }
+        
+      </style>
+      <style>
+        nav {
+            display: flex;
+            flex-direction:row;
+            justify-content: space-evenly;
+    
+        }
+        nav a {
+            font-size: 20px;
+            padding: 12px 30px;
+            border: none ;
+            border-radius: 40px;
+            font-weight: 750;
+            color: rgb(216, 216, 216);
+        }
+      </style>
+</header>
+<body>
+    
+
+    <nav>
+        <a href="{%url 'home' %}">home</a>   
+        <a href="{% url 'friends' %}">friends</a>
+        <a href="{% url 'profile' request.session.name%}">profile</a>
+         
+      </nav>
+      <hr />
+<h1 style="color: gray; font-weight: 900;text-transform: uppercase; margin: 20px; width: 100%;font-size: 36px;">this are your invitations <br> {{request.session.name}}</h1>
+<hr />
+<ul>
+    {% for inv in invitations %}
+    <div class="friend">
+        <h3>{{ inv.sender.name }} wants to be your friend</h3>
+        <a href="{% url 'accept' inv.id %}" id="msgg">accept </a>
+        <a href="{% url 'delete' inv.id %}" id="msgg">delete </a>
+        <br>
+    </div>
+    <hr />
+    {% endfor %}
+</ul>
+</body>

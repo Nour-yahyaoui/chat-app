@@ -1,0 +1,229 @@
+
+
+<style>
+    /* Global Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #222327;
+      border: solid 1px rgba(255, 255, 255, 0.192);
+      max-width: 800px;
+      margin: auto;
+      padding: 10px;
+
+    }
+   
+    form {
+      max-width: 800px;
+      background: #0000001f;
+      padding: 20px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      margin-top: 200px;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    form  input[type="submit"] {
+      width: 40%;
+      height: 30px;
+      border-radius: 20px;
+      border: none;
+      background: transparent;
+      color: white;
+      font-weight: 750;
+      color: black;
+      
+    }
+    form  input  {
+      border: none;
+      font-size: 16px;
+      font-family: Arial, Helvetica, sans-serif;
+      width: 60%;
+      padding: 20px;
+      border-radius: 12px;
+      background-color: rgba(0, 0, 0, 0.247);
+      color: white;
+      font-weight: 750;
+      letter-spacing: 2px;
+      font-size: 16px;
+    }
+    input:focus {
+        outline: none;
+        color: rgb(64, 247, 104);
+    }
+    
+  </style>
+  <style>
+    nav {
+        display: flex;
+        flex-direction:row;
+        justify-content: space-evenly;
+
+    }
+     a {
+        font-size: 20px;
+        padding: 12px 30px;
+        border: none ;
+        border-radius: 40px;
+        font-weight: 750;
+        color: rgb(216, 216, 216);
+    }
+    .user {
+        color: white;
+            width: 100%;
+            padding-top: 20px;
+            padding-left: 20px;
+            padding-right: 20px;
+            height: auto;
+            border: solid 1px rgb(184, 184, 184);
+            border-radius: 40px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-top: 10px;
+
+    }
+    .user h5 {
+        margin: 5px;
+        font-size: 30px;
+        color: gray;
+    }
+    .user h6 {
+        font-size: 20px;
+        margin: 0 10px;
+    }
+    .user a {
+        padding: 10px 30px;
+        border: solid gra;
+        max-width: 180px;
+        text-align: center;
+        background-color: rgb(42, 46, 46);
+        text-decoration: none;
+        margin:  5px 0 12px 0;
+        color: rgb(75, 248, 162);
+    }
+    nav {
+        margin: 2px;
+        border: solid 1px rgb(163, 163, 163);
+        border-radius: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .posts {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 800px;
+      margin: 10px;
+      background-color: rgba(0, 0, 0, 0.137);
+      padding: 10px;
+      border-radius: 30px;
+      height: auto;
+    }
+    .posts .post {
+      background: transparent;
+      border:none;
+      padding: 10px;
+      margin-top: 20px;
+    }
+    .post h3 {
+      color: gray;
+      font-size: 25px;
+      font-weight: 750;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+    }
+    .post p {
+      color: rgb(185, 185, 185);
+      font-weight: 900;
+      margin:  10px 0;
+      letter-spacing: 2.5px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .img-cont {
+      margin: 20px 2px;
+      border: none;
+      height: 300px;
+      border-radius: 40px;
+    }
+    .post .img-cont img {
+      max-width: 100%;
+      max-height: 100%;
+      
+    }
+  </style>
+  </header>
+<body>
+    
+
+    {%if request.session.auth%}
+    <nav>
+    <a href="{% url 'display'%}">invitations</a>
+    <a href="{% url 'friends' %}">friends</a>
+    <a href="{% url 'profile' request.session.name%}">profile</a>
+    
+    </nav>
+    <form action="{% url 'search' %}" method="post" style="margin-top: 20px;">
+        {% csrf_token %}
+        <input type="text" name="q" id="" placeholder="search user..." required>
+        <button type="submit" style="color: white; background: transparent; border-radius: 30px; font-size: 17px;font-weight: 750; text-decoration:underline;width: 80px;height: 50px;border: solid 1px transparent;padding: 5px;">search</button>
+    {%if userrs  %}
+    <hr />
+
+    {%for userr in userrs %}
+    <div class="user">
+      <img src="{{ userr.profile_picture.url}}" alt="">
+        <h5>{{userr.name}}</h5>
+        <h6>{{userr.email}}</h6>
+        <a href="{% url 'profile' userr.name %}">profile</a>
+
+            
+            <a href="{% url 'add' userr.id%}">addfriend</a>
+        </div>
+           {%endfor%}
+           {%endif%}
+
+    </form>
+<h1 style="color: rgb(75, 248, 162);font-weight: 750;text-transform: uppercase; margin: 50px 0; text-align: center;">welcome {{request.session.name}}</h1>
+
+<form action="{% url 'addpost' %}"  style="margin-top: 0;margin-bottom: 20px; margin-left: 20px;margin-right: 20px;" method="post">
+  {% csrf_token %}
+  <input type="text" name="text" id="" placeholder="add a post-text" required style="height: 80px !important;"">
+  <button type="submit" style="color: white; background: transparent; border-radius: 30px; font-size: 17px;font-weight: 750; text-decoration:underline;width: 80px;height: 50px;border: solid 1px transparent;padding: 5px;">post</button>
+</form>
+<hr / style="border: gray 1px solid; margin: 40px ;">
+<div class="posts">
+  
+  {%for post in posts%}
+  <div class="post">
+    
+    <h3>{{post.author}}</h3>
+    <p>{{post.text}}</p>
+    <hr / style="border: gray 1px solid; margin: 10px ;">
+
+    
+  </div>
+  {%endfor%}
+
+  </div>
+
+{%else %}
+<h2 style="color: red;">please login or register to see the content !!</h2>
+<a href="{% url 'login'%}">login</a>
+<br />
+or
+<br />
+<a href="{% url 'register'%}">register</a>
+{%endif%}
+
+
+</div>
+</body>

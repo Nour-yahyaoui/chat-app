@@ -1,0 +1,117 @@
+
+<header>
+    <script>
+        window.onload = function() {
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    </script>
+
+<style>
+    /* Global Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #222327;
+      border: solid 1px rgba(255, 255, 255, 0.192);
+      max-width: 800px;
+      margin: auto;
+
+    }
+   
+    form {
+      max-width: 800px;
+      background: #0000001f;
+      padding: 20px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      margin-top: 200px;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    form  input[type="submit"] {
+      width: 40%;
+      height: 30px;
+      border-radius: 20px;
+      border: none;
+      background: transparent;
+      color: white;
+      font-weight: 750;
+      color: black;
+      
+    }
+    form  input  {
+      border: none;
+      font-size: 16px;
+      font-family: Arial, Helvetica, sans-serif;
+      width: 60%;
+      padding: 20px;
+      border-radius: 12px;
+      background-color: rgba(0, 0, 0, 0.247);
+      color: white;
+      font-weight: 750;
+      letter-spacing: 2px;
+      font-size: 16px;
+    }
+    input:focus {
+        outline: none;
+        color: rgb(64, 247, 104);
+    }
+    
+  </style>
+  <style>
+    nav {
+        display: flex;
+        flex-direction:row;
+        justify-content: space-evenly;
+
+    }
+    nav a {
+        font-size: 20px;
+        padding: 12px 30px;
+        border: none ;
+        border-radius: 40px;
+        font-weight: 750;
+        color: rgb(216, 216, 216);
+    }
+  </style>
+  </header>
+
+
+  <body>
+    
+  
+  <nav>
+    <a href="{%url 'friends'%}">back</a><a href="{%url 'home' %}">home</a><a href="{% url 'logout' %}">logout</a>
+</nav>
+
+  <hr />
+      <div id="messages-zone" class="messages-zone" style="padding: 20px;color: gray; gap: 20px;display: flex ; flex-direction: column;">
+<h1 style="font-weight: 900; font-size: 45; text-transform: uppercase; text-align: center;">{{friend}}</h1>
+<hr />
+{% for message in messages %}
+    {% if message.sender == current_user %}
+    <div class="writed-message" style="color:white;background-color: #173bcae0; border-radius: 20px; max-width: 80%; padding: 20px;align-self: flex-end;">
+        <p>{{message.msg}}</p>    
+    </div>
+    {%else %}
+        <div class="sended-message" style="color:white;background-color: #070707; border-radius: 20px; max-width: 80%; padding: 20px;align-self: flex-start;">
+           <p>{{message.msg}}</p>
+        </div>      
+        {% endif %}
+{% endfor %}
+      </div>
+ 
+
+<form method="post" style="margin-top: 10px;">
+    {% csrf_token %}
+    <input type="text" name="message" id="" aria-autocomplete="false">
+    <input type="submit" value="send" style="color: rgb(64, 247, 104);">
+</form>
+
+</body
